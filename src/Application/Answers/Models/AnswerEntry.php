@@ -30,8 +30,6 @@ final class AnswerEntry
     #[ResourceIdentifier]
     private readonly AnswerId $answerId;
     #[Attribute]
-    private readonly string $title;
-    #[Attribute]
     private readonly string $body;
     #[Attribute]
     private readonly UserId $userId;
@@ -45,7 +43,6 @@ final class AnswerEntry
         $this->answerId = new AnswerId($data['answerId']);
         $this->userId = new UserId($data['userId']);
         $this->email = new Email($data['email']);
-        $this->title = $data['title'];
         $this->name = $data['name'];
         $this->body = $data['body'];
     }
@@ -60,15 +57,6 @@ final class AnswerEntry
         return $this->answerId;
     }
 
-    /**
-     * title
-     *
-     * @return string
-     */
-    public function title(): string
-    {
-        return $this->title;
-    }
 
     /**
      * body

@@ -3,7 +3,6 @@
 namespace App\Application\Answers;
 
 use App\Application\Command;
-use App\Domain\Answers\Answer;
 use App\Domain\Answers\Answer\AnswerId;
 use App\Domain\Questions\Question\QuestionId;
 use App\Domain\UserManagement\User\UserId;
@@ -65,7 +64,7 @@ class PlaceAnswerCommand implements Command
     /**
      * questionId
      *
-     * @return string
+     * @return QuestionId
      */
     public function questionId(): QuestionId
     {

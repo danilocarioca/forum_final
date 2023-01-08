@@ -4,7 +4,7 @@ namespace App\Application\Answers;
 
 use App\Application\Command;
 use App\Domain\Answers\Answer\AnswerId;
-use App\Infrastructure\JsonApi\Questions\ChangeQuestionCommandSchema;
+use App\Infrastructure\JsonApi\Answers\ChangeAnswerCommandSchema;
 use App\Infrastructure\JsonApi\SchemaDiscovery\Attributes\AsResourceObject;
 
 #[AsResourceObject(schemaClass: ChangeAnswerCommandSchema::class)]
