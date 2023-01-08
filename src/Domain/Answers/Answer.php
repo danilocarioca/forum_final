@@ -5,6 +5,7 @@ namespace App\Domain\Answers;
 use App\Domain\Answers\Answer\AnswerId;
 use App\Domain\Answers\Events\AnswerWasChanged;
 use App\Domain\Answers\Events\AnswerWasPlaced;
+use App\Domain\Questions\Question\QuestionId;
 use App\Domain\RootAggregate;
 use App\Domain\RootAggregateMethods;
 use App\Domain\UserManagement\User;
@@ -46,6 +47,7 @@ class Answer implements JsonSerializable, RootAggregate
     private bool $archived = false;
 
     private ?Collection $answers = null;
+    private ?QuestionId $questionId = null;
 
     public function __construct(
         #[ManyToOne(targetEntity: User::class, fetch: "EAGER")]
@@ -58,18 +60,17 @@ class Answer implements JsonSerializable, RootAggregate
         private User $owner,
         #[Column]
         #[Attribute]
-        private string $title,
-        #[Column]
-        #[Attribute]
+
         private string $body
     ) {
         $this->answerId = new AnswerId();
+        $this->questionId = new QuestionId();
         $this->answers = new ArrayCollection();
 
         $this->recordThat(new AnswerWasPlaced(
             $this->owner->userId(),
             $this->answerId,
-            $this->title,
+            $this->questionId,
             $this->body,
             $this->closed,
             $this->archived
@@ -84,6 +85,17 @@ class Answer implements JsonSerializable, RootAggregate
     public function answerId(): AnswerId
     {
         return $this->answerId;
+    }
+
+    /**
+     * questionId
+     *
+     * @return QuestionId
+     */
+
+    public function questionId(): QuestionId
+    {
+        return $this->questionId;
     }
 
     /**
@@ -117,16 +129,6 @@ class Answer implements JsonSerializable, RootAggregate
     }
 
     /**
-     * title
-     *
-     * @return string
-     */
-    public function title(): string
-    {
-        return $this->title;
-    }
-
-    /**
      * body
      *
      * @return string
@@ -156,7 +158,7 @@ class Answer implements JsonSerializable, RootAggregate
     {
         return [
             'answerId' => $this->answerId,
-            'title' => $this->title,
+            'questionId' => $this->questionId,
             'body' => $this->body,
             'owner' => $this->owner,
             'archived' => $this->archived,
@@ -164,11 +166,11 @@ class Answer implements JsonSerializable, RootAggregate
         ];
     }
 
-    public function change(?string $title = null, ?string $body = null): self
+    public function change(?string $body = null) : self
     {
-        $this->title = $title ?: $this->title;
         $this->body = $body ?: $this->body;
-        $this->recordThat(new AnswerWasChanged($this->answerId, $this->title, $this->body));
+        $this->recordThat(new AnswerWasChanged($this->answerId, $this->body));
         return $this;
     }
+
 }

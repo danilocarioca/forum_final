@@ -9,25 +9,27 @@ use App\Domain\RootAggregate;
 use App\Domain\UserManagement\User;
 use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
+use App\Domain\Questions\Question;
 
 
 
 class AnswerSpec extends ObjectBehavior
 {
-    private $title;
+    private Question\QuestionId $questionId;
     private $body;
 
     function let(User $owner)
     {
         $owner->userId()->willReturn(new User\UserId());
 
-        $this->title = 'Some title';
+
         $this->body = 'And a body';
-        $this->beConstructedWith($owner, $this->title, $this->body);
+        $this->beConstructedWith($owner, $this->body);
     }
     function it_is_initializable()
     {
         $this->shouldHaveType(Answer::class);
+
     }
 
     function its_a_root_aggregate()
@@ -43,10 +45,11 @@ class AnswerSpec extends ObjectBehavior
         $this->answerId()->shouldBeAnInstanceOf(Answer\AnswerId::class);
     }
 
-    function it_has_a_title()
+    function it_has_a_question_id()
     {
-        $this->title()->shouldBe($this->title);
+        $this->questionId()->shouldBeAnInstanceOf(Question\QuestionId::class);
     }
+
 
     function it_has_a_body()
     {
@@ -72,8 +75,9 @@ class AnswerSpec extends ObjectBehavior
     {
         $this->shouldBeAnInstanceOf(\JsonSerializable::class);
         $this->jsonSerialize()->shouldBe([
+
             'answerId' => $this->answerId(),
-            'title' => $this->title,
+            'questionId' => $this->questionId(),
             'body' => $this->body,
             'owner' => $owner,
             'archived' => false,
@@ -88,17 +92,16 @@ class AnswerSpec extends ObjectBehavior
 
     function it_can_be_changed()
     {
-        $title = 'new Title';
         $body = 'new body';
         $this->releaseEvents();
-        $this->change($title, $body)->shouldBe($this->getWrappedObject());
+        $this->change($body)->shouldBe($this->getWrappedObject());
 
-        $this->title()->shouldBe($title);
         $this->body()->shouldBe($body);
 
         $events = $this->releaseEvents();
         $events->shouldHaveCount(1);
         $events[0]->shouldBeAnInstanceOf(AnswerWasChanged::class);
+
     }
 
 }

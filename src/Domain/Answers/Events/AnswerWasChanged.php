@@ -4,6 +4,8 @@ namespace App\Domain\Answers\Events;
 
 use App\Domain\AbstractEvent;
 use App\Domain\Answers\Answer\AnswerId;
+use App\Domain\Questions\Question;
+use App\Domain\Questions\Question\QuestionId;
 
 class AnswerWasChanged extends AbstractEvent implements \JsonSerializable
 {
@@ -11,12 +13,11 @@ class AnswerWasChanged extends AbstractEvent implements \JsonSerializable
      * Creates a AnswerWasChanged
      *
      * @param AnswerId $answerId
-     * @param string $title
      * @param string $body
      */
+
     public function __construct(
         private readonly AnswerId $answerId,
-        private readonly string $title,
         private readonly string $body
     ) {
         parent::__construct();
@@ -30,16 +31,6 @@ class AnswerWasChanged extends AbstractEvent implements \JsonSerializable
     public function answerId(): AnswerId
     {
         return $this->answerId;
-    }
-
-    /**
-     * title
-     *
-     * @return string
-     */
-    public function title(): string
-    {
-        return $this->title;
     }
 
     /**
@@ -59,7 +50,6 @@ class AnswerWasChanged extends AbstractEvent implements \JsonSerializable
     {
         return [
             'answerId' => $this->answerId,
-            'title' => $this->title,
             'body' => $this->body
         ];
     }

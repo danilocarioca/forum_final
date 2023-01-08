@@ -16,7 +16,7 @@ class AnswerWasPlacedSpec extends ObjectBehavior
 
     private $ownerUserId;
     private $answerId;
-    private $title;
+    private $questionId;
     private $body;
     private $closed;
     private $archived;
@@ -25,14 +25,14 @@ class AnswerWasPlacedSpec extends ObjectBehavior
     {
         $this->ownerUserId = new UserId();
         $this->answerId = new AnswerId();
-        $this->title = 'A title';
+        $this->questionId = 'a question id number...';
         $this->body = 'A long text as body...';
         $this->closed = false;
         $this->archived = false;
         $this->beConstructedWith(
             $this->ownerUserId,
             $this->answerId,
-            $this->title,
+            $this->questionId,
             $this->body,
             $this->closed,
             $this->archived
@@ -54,9 +54,9 @@ class AnswerWasPlacedSpec extends ObjectBehavior
         $this->answerId()->shouldBe($this->answerId);
     }
 
-    function it_has_a_title()
+    function it_has_a_questionId()
     {
-        $this->title()->shouldBe($this->title);
+        $this->questionId()->shouldBe($this->questionId);
     }
 
     function it_has_a_body()
@@ -87,7 +87,7 @@ class AnswerWasPlacedSpec extends ObjectBehavior
         $this->jsonSerialize()->shouldBe([
             'ownerUserId' => $this->ownerUserId,
             'answerId' => $this->answerId,
-            'title' => $this->title,
+            'questionId' => $this->questionId,
             'body' => $this->body,
             'closed' => $this->closed,
             'archived' => $this->archived

@@ -8,19 +8,17 @@ use App\Domain\Answers\Answer\AnswerId;
 use PhpSpec\ObjectBehavior;
 use Symfony\Contracts\EventDispatcher\Event;
 
+
 class AnswerWasChangedSpec extends ObjectBehavior
 {
-
     private $answerId;
-    private $title;
     private $body;
 
     function let()
     {
         $this->answerId = new AnswerId();
-        $this->title = 'title';
         $this->body = 'body';
-        $this->beConstructedWith($this->answerId, $this->title, $this->body);
+        $this->beConstructedWith($this->answerId, $this->body);
     }
 
     function it_is_initializable()
@@ -41,11 +39,6 @@ class AnswerWasChangedSpec extends ObjectBehavior
         $this->answerId()->shouldBe($this->answerId);
     }
 
-    function it_has_a_title()
-    {
-        $this->title()->shouldBe($this->title);
-    }
-
     function it_has_a_body()
     {
         $this->body()->shouldBe($this->body);
@@ -56,7 +49,6 @@ class AnswerWasChangedSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(\JsonSerializable::class);
         $this->jsonSerialize()->shouldBe([
             'answerId' => $this->answerId,
-            'title' => $this->title,
             'body' => $this->body
         ]);
     }

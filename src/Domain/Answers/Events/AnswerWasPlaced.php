@@ -15,7 +15,7 @@ class AnswerWasPlaced extends AbstractEvent implements JsonSerializable
      *
      * @param UserId $ownerUserId
      * @param AnswerId $answerId
-     * @param string $title
+     * @param string $questionId
      * @param string $body
      * @param bool $closed
      * @param bool $archived
@@ -23,7 +23,7 @@ class AnswerWasPlaced extends AbstractEvent implements JsonSerializable
     public function __construct(
         private readonly UserId $ownerUserId,
         private readonly AnswerId $answerId,
-        private readonly string $title,
+        private readonly string $questionId,
         private readonly string $body,
         private readonly bool $closed,
         private readonly bool $archived
@@ -52,13 +52,13 @@ class AnswerWasPlaced extends AbstractEvent implements JsonSerializable
     }
 
     /**
-     * title
+     * questionId
      *
      * @return string
      */
-    public function title(): string
+    public function questionId(): string
     {
-        return $this->title;
+        return $this->questionId;
     }
 
     /**
@@ -99,7 +99,7 @@ class AnswerWasPlaced extends AbstractEvent implements JsonSerializable
         return [
             'ownerUserId' => $this->ownerUserId,
             'answerId' => $this->answerId,
-            'title' => $this->title,
+            'questionId' => $this->questionId,
             'body' => $this->body,
             'closed' => $this->closed,
             'archived' => $this->archived

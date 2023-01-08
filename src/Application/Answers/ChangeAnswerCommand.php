@@ -12,7 +12,6 @@ class ChangeAnswerCommand implements Command
 {
     public function __construct(
         private readonly AnswerId $answerId,
-        private readonly ?string $title = null,
         private readonly ?string $body = null
     ) {
     }
@@ -22,19 +21,9 @@ class ChangeAnswerCommand implements Command
      *
      * @return AnswerId
      */
-    public function answerId(): answerId
+    public function answerId(): AnswerId
     {
         return $this->answerId;
-    }
-
-    /**
-     * title
-     *
-     * @return string|null
-     */
-    public function title(): ?string
-    {
-        return $this->title;
     }
 
     /**
