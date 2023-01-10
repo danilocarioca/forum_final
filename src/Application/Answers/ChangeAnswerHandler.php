@@ -19,7 +19,6 @@ class ChangeAnswerHandler implements CommandHandler
         private readonly AnswerRepository $answers,
         private readonly OwnedByRequester $ownedByRequester,
         private readonly EventDispatcherInterface $dispatcher
-
     ) {
     }
 
@@ -27,7 +26,7 @@ class ChangeAnswerHandler implements CommandHandler
      * @inheritDoc
      * @param ChangeAnswerCommand $command
      */
-    public function handle(Command $command) : Answer
+    public function handle(Command $command): Answer
     {
         $answer = $this->answers->withAnswerId($command->answerId());
 
@@ -44,5 +43,4 @@ class ChangeAnswerHandler implements CommandHandler
         );
         return $answer;
     }
-
 }
