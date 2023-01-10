@@ -31,7 +31,7 @@ class PlaceAnswerCommand implements Command
         private readonly UserId $ownerUserId,
 
         #[Attribute(required: true)]
-        private readonly answerId $answerId,
+        private readonly AnswerId $answerId,
 
         #[Attribute(required: true)]
         private readonly QuestionId $questionId,

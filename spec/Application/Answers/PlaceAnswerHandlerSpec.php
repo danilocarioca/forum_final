@@ -7,12 +7,12 @@ use App\Application\Answers\PlaceAnswerCommand;
 use App\Application\Answers\PlaceAnswerHandler;
 use App\Application\CommandHandler;
 use App\Domain\Answers\Answer;
-use App\Domain\Answers\Answer\AnswerId;
 use App\Domain\Answers\AnswerRepository;
 use App\Domain\Answers\Events\AnswerWasPlaced;
-use App\Domain\Questions\Question\QuestionId;
+use App\Domain\Questions\Question;
 use App\Domain\UserManagement\User;
 use App\Domain\UserManagement\UserRepository;
+use phpDocumentor\Reflection\Types\String_;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -40,6 +40,7 @@ class PlaceAnswerHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($users, $answers, $dispatcher);
     }
 
+
     function it_is_initializable()
     {
         $this->shouldHaveType(PlaceAnswerHandler::class);
@@ -52,7 +53,9 @@ class PlaceAnswerHandlerSpec extends ObjectBehavior
 
     function it_handles_place_answer_command(
         AnswerRepository $answers,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        Answer\AnswerId $answerId,
+        Question\QuestionId $questionId
     ) {
         $command = new PlaceAnswerCommand(
             $this->userId,

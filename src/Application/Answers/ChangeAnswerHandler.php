@@ -5,10 +5,10 @@ namespace App\Application\Answers;
 use App\Application\Command;
 use App\Application\CommandHandler;
 use App\Application\CommandHandlerMethods;
+use App\Domain\Exception\SpecificationFails;
 use App\Domain\Answers\Answer;
 use App\Domain\Answers\AnswerRepository;
 use App\Domain\Answers\Specification\OwnedByRequester;
-use App\Domain\Exception\SpecificationFails;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class ChangeAnswerHandler implements CommandHandler

@@ -7,9 +7,8 @@ use App\Application\Command;
 use App\Application\CommandHandler;
 use App\Application\CommandHandlerMethods;
 use App\Domain\Answers\Answer;
-use App\Domain\Answers\Answer\AnswerId;
 use App\Domain\Answers\AnswerRepository;
-use App\Domain\Questions\Question\QuestionId;
+use App\Domain\Questions\Question;
 use App\Domain\UserManagement\UserRepository;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -22,8 +21,6 @@ class PlaceAnswerHandler implements CommandHandler
         private UserRepository $users,
         private AnswerRepository $answers,
         private EventDispatcherInterface $dispatcher,
-        private AnswerId $answerId,
-        private QuestionId $questionId,
 
     ) {
     }
